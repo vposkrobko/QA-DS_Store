@@ -6,7 +6,7 @@ export class Products {
         this.page = page;
     }
 
-    public async addProducts(products: { productName: string; prom: string }[]) {
+    public async addProducts(products: { productName: string; promo: string }[]) {
         for (const product of products) {
             let productNameSelector = `.product_name:has-text("${product.productName}")`;
             let wrapRibbon = await this.page.locator(productNameSelector);
@@ -14,9 +14,9 @@ export class Products {
             let isHidden = await wrapRibbon.locator(SELECTORS.notDiscountCard);
             let buyButton = await this.page.locator(`.product_name:has-text("${product.productName}") ~ button:has-text("Купить")`);
 
-            if (hasWrapRibbonClass && isHidden && product.prom == "No discount") {
+            if (hasWrapRibbonClass && isHidden && product.promo == "No discount") {
                 await buyButton.click();
-            } else if (hasWrapRibbonClass && product.prom == "With a discount") {;
+            } else if (hasWrapRibbonClass && product.promo == "With a discount") {;
                 await buyButton.click();
             }
         }
@@ -30,7 +30,7 @@ export class Products {
                 let buyButton = await this.page.locator(`.product_name:has-text("${productName}") ~ button:has-text("Купить")`);
                 await buyButton.click();
             } else {
-                console.log(`Product "${productName}" don't find on the page`);
+                console.log(`Product "${productName}" doesn't find on the page`);
             }
         }
     }
