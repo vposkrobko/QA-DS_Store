@@ -14,7 +14,7 @@ test('Switching to an empty basket', async ({ page }) => {
     let basket = new BasketMode(page)
     await basket.getBasket()
     // Корзина пуста
-    await basket.getEmptyBasket()
+    await basket.countProductsInBasket("0")
     // Кликнуть на иконку корзины
     await basket.clickOnBasketIcon()
     // Всплывает окно корзины
@@ -30,7 +30,7 @@ test('Go to basket with 1 non-promotional item', async ({ page }) => {
     let products = new Products(page)
     await basket.getBasket()
     // Корзина пуста
-    await basket.getEmptyBasket()
+    await basket.countProductsInBasket("0")
     // Добавить в корзину один товар без скидки
     await products.addProducts([{ productName: "Кошечка Мари", promo: "No discount" }])
     // Рядом с корзиной отображается цифра 1
