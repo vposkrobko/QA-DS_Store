@@ -32,7 +32,7 @@ test('Go to basket with 1 non-promotional item', async ({ page }) => {
     // Корзина пуста
     await basket.getEmptyBasket()
     // Добавить в корзину один товар без скидки
-    await products.addProducts([{ productName: "Кошечка Мари", prom: "No discount" }])
+    await products.addProducts([{ productName: "Кошечка Мари", promo: "No discount" }])
     // Рядом с корзиной отображается цифра 1
     await basket.countProductsInBasket("1")
     // Нажать на иконку корзины
@@ -54,7 +54,7 @@ test('Go to basket with 1 promotional item', async ({ page }) => {
     // Корзина пуста
     await basket.getEmptyBasket()
     // Добавить в корзину один товар со скидкой
-    await products.addProducts([{ productName: "Игра престолов", prom: "With a discount" }])
+    await products.addProducts([{ productName: "Игра престолов", promo: "With a discount" }])
     // Рядом с корзиной отображается цифра 1
     await basket.countProductsInBasket("1")
     // Нажать на иконку корзины
@@ -77,14 +77,14 @@ test('Go to basket with 9 different products', async ({ page }) => {
     await basket.countProductsInBasket("1")
     // Добавить в корзину ещё 8 разных товаров
     await products.addProducts([
-        { productName: "Игра престолов", prom: "With a discount" },
-        { productName: "Творческий беспорядок", prom: "With a discount" }, 
-        { productName: "Блокнот в точку", prom: "No discount" }, 
-        { productName: "Кошечка Мари", prom: "No discount" }, 
-        { productName: "Гусь. Дедлайн", prom: "No discount" }, 
-        { productName: "Black&Red", prom: "With a discount" }, 
-        { productName: "Нотная тетрадь", prom: "No discount" }, 
-        { productName: "Художник", prom: "No discount" }
+        { productName: "Игра престолов", promo: "With a discount" },
+        { productName: "Творческий беспорядок", promo: "With a discount" }, 
+        { productName: "Блокнот в точку", promo: "No discount" }, 
+        { productName: "Кошечка Мари", promo: "No discount" }, 
+        { productName: "Гусь. Дедлайн", promo: "No discount" }, 
+        { productName: "Black&Red", promo: "With a discount" }, 
+        { productName: "Нотная тетрадь", promo: "No discount" }, 
+        { productName: "Художник", promo: "No discount" }
     ])
     // Рядом с иконкой корзины отображается цифра 9
     await basket.countProductsInBasket("9")
