@@ -50,10 +50,13 @@ export class Products {
                 const hasPromo = await productNode.locator('.note-item .note-poster .wrap-ribbon').count() > 0;
                 const promo = hasPromo ? "With a discount" : "No discount";
 
+                const productPriceLocator = productNode.locator('.note-item .card-body .mt-3 .product_price');
+                const productPrice = await productPriceLocator.textContent();
+
                 return {
                     productName: productName.trim(),
                     promo: promo,
-                    price: '285 р.'
+                    price: productPrice,
                 };
             }
         }));
