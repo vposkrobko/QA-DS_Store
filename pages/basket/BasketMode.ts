@@ -10,26 +10,27 @@ export class BasketMode {
     }
 
     public async getBasket(){
-        await this.page.locator(SELECTORS.basketIcon).filter({hasText: this.BASKET_ICON_NAME}).isVisible()
+        await this.page.waitForSelector(SELECTORS.basketCountItems, { timeout: 10000 });
+        await this.page.locator(SELECTORS.basketIcon).filter({hasText: this.BASKET_ICON_NAME}).isVisible();
     }
 
     public async clickOnBasketIcon(){
         await this.page.locator(SELECTORS.basketIcon).filter({hasText: this.BASKET_ICON_NAME}).click()
     }
 
-    public async countProductsInBasket (expectedCount: string){
+    public async countProductsInBasket (expectedCount: string) {
+        await this.page.waitForSelector(SELECTORS.basketCountItems, { timeout: 10000 });
         let count = this.page.locator(SELECTORS.basketCountItems);
         await expect(count).toHaveText(`${ expectedCount }`);
     }
 
     public async getEmptyBasket (){
-        let products_count = await this.page.locator(SELECTORS.basketCountItems).textContent()
-    
-        if (products_count != "0") {
+        await this.page.waitForSelector(SELECTORS.basketCountItems, { timeout: 10000 });
+        let products_count = await this.page.locator(SELECTORS.basketCountItems).textContent();
+
+        if (products_count !== "0") {
             await this.page.locator(SELECTORS.basketIcon).filter({hasText: this.BASKET_ICON_NAME}).click()
             await this.page.locator(SELECTORS.basketButton).filter({hasText: this.CLEAR_BASKET_BUTTON_NAME}).click()
-        } else if (products_count = "0") {
-            await this.page.locator(SELECTORS.basketCountItems).getByText("0").isVisible()
         }
     }
 
@@ -66,7 +67,7 @@ export class BasketMode {
 
 const SELECTORS = {
    basketIcon: "#basketContainer",
-   basketCountItems: ".basket-count-items",
+   basketCountItems: `//span[@class='basket-count-items badge badge-primary']`,
    basketWindowMenu: ".dropdown-menu",
    basketWindowMenuExist: ".show",
    basketButton: ".btn",

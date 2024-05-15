@@ -16,7 +16,7 @@ export class Products {
 
             if (hasWrapRibbonClass && isHidden && product.promo == "No discount") {
                 await buyButton.click();
-            } else if (hasWrapRibbonClass && product.promo == "With a discount") {;
+            } else if (hasWrapRibbonClass && product.promo == "With a discount") {
                 await buyButton.click();
             }
         }
@@ -33,6 +33,32 @@ export class Products {
                 console.log(`Product "${productName}" doesn't find on the page`);
             }
         }
+    }
+
+    public async getFilteredProductsOnPage(regEx: RegExp) {
+        await this.page.waitForSelector('.note-list .col-3.mb-5');
+        const productsLocator = await this.page.locator('.note-list .col-3.mb-5').all();
+        
+        const productList = await Promise.all(productsLocator.map(async (productNode) => {
+            const productTypeLocator = productNode.locator('.note-item .card-body .product_type');
+            const productType = await productTypeLocator.textContent();
+
+            if (regEx.test(productType)) {
+                const productNameLocator = productNode.locator('.note-item .card-body .product_name');
+                const productName = await productNameLocator.textContent();
+                
+                const hasPromo = await productNode.locator('.note-item .note-poster .wrap-ribbon').count() > 0;
+                const promo = hasPromo ? "With a discount" : "No discount";
+
+                return {
+                    productName: productName.trim(),
+                    promo: promo,
+                    price: '285 р.'
+                };
+            }
+        }));
+
+        return productList.filter(Boolean);
     }
 }
 
