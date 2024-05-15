@@ -72,11 +72,11 @@ test('Go to basket with 1 promotional item', async ({ page }) => {
 
 test('Go to basket with 9 different products', async ({ page }) => {
     const NotFilteredProductList = [
-        { productName: "Творческий беспорядок", promo: "With a discount", price: '285 р.' }, 
-        { productName: "Блокнот в точку", promo: "No discount", price: '285 р.' }, 
-        { productName: "Кошечка Мари", promo: "No discount", price: '285 р.' },
-        { productName: "Нотная тетрадь", promo: "No discount", price: '285 р.' },
-        { productName: "Художник", promo: "No discount", price: '285 р.' },
+        { productName: "Творческий беспорядок", promo: "With a discount", price: '400 р.' }, 
+        { productName: "Блокнот в точку", promo: "No discount", price: '400 р.' }, 
+        { productName: "Кошечка Мари", promo: "No discount", price: '442 р.' },
+        { productName: "Нотная тетрадь", promo: "No discount", price: '499 р.' },
+        { productName: "Художник", promo: "No discount", price: '420 р.' },
     ];
 
     let basket = new BasketMode(page);
